@@ -1,0 +1,116 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openrouter-cli"
+version = "1.0.0"
+description = "AI-powered CLI tool using OpenRouter for file operations, code analysis, and web interactions"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "OpenRouter CLI Team", email = "support@openrouter-cli.dev"},
+]
+maintainers = [
+    {name = "OpenRouter CLI Team", email = "support@openrouter-cli.dev"},
+]
+keywords = ["ai", "cli", "openrouter", "file-operations", "code-analysis", "web-scraping", "chatbot"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Tools",
+    "Topic :: Utilities",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Text Processing",
+]
+dependencies = [
+    "openai>=1.0.0",
+    "requests>=2.25.0",
+    "click>=8.0.0",
+    "pyyaml>=5.4.0",
+    "beautifulsoup4>=4.9.0",
+    "lxml>=4.6.0",
+    "markdown>=3.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "black>=21.0.0",
+    "flake8>=3.8.0",
+    "mypy>=0.910",
+    "pytest-cov>=2.12.0",
+]
+test = [
+    "pytest>=6.0.0",
+    "pytest-cov>=2.12.0",
+    "pytest-mock>=3.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/openrouter-cli/openrouter-cli"
+Documentation = "https://openrouter-cli.readthedocs.io/"
+Repository = "https://github.com/openrouter-cli/openrouter-cli"
+"Bug Reports" = "https://github.com/openrouter-cli/openrouter-cli/issues"
+Changelog = "https://github.com/openrouter-cli/openrouter-cli/blob/main/CHANGELOG.md"
+
+[project.scripts]
+openrouter-cli = "openrouter_cli.main:main"
+
+[tool.setuptools]
+packages = ["openrouter_cli", "openrouter_cli.core", "openrouter_cli.commands", "openrouter_cli.utils"]
+
+[tool.setuptools.package-data]
+openrouter_cli = ["*.yaml", "*.yml", "*.json"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]

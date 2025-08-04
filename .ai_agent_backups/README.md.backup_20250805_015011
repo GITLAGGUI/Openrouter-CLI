@@ -1,0 +1,298 @@
+# 🤖 Enhanced Personal AI Agent
+
+A powerful AI-powered coding assistant that can read, modify, analyze, and manage files across multiple programming languages, plus fetch and process web content.
+
+## ✨ Features
+
+### 🔧 File Operations
+- **Read Files**: Read and analyze files with metadata extraction
+- **Write Files**: Create or modify files with automatic backup
+- **Search Files**: Advanced file and content search with regex support
+- **Remove Files**: Safe file deletion with backup options
+- **Undo Operations**: Revert the last file operation
+
+### 🌐 Web Capabilities
+- **URL Fetching**: Download content from websites
+- **Text Extraction**: Extract clean text from HTML pages
+- **JSON Processing**: Handle API responses and JSON data
+- **Smart Headers**: Browser-like requests to avoid blocking
+
+### 💻 Multi-Language Support
+Supports analysis and modification of:
+- Python (.py, .pyw)
+- JavaScript/TypeScript (.js, .jsx, .ts, .tsx)
+- HTML/CSS (.html, .htm, .css, .scss, .sass)
+- Java (.java)
+- C/C++ (.c, .cpp, .h, .cc, .cxx)
+- C# (.cs)
+- PHP (.php)
+- Ruby (.rb)
+- Go (.go)
+- Rust (.rs)
+- Swift (.swift)
+- Kotlin (.kt)
+- Scala (.scala)
+- R (.r, .R)
+- SQL (.sql)
+- Shell scripts (.sh, .bash, .zsh)
+- PowerShell (.ps1)
+- Configuration files (.yml, .yaml, .json, .xml, .conf, .cfg, .ini)
+- Documentation (.md, .markdown, .txt)
+
+### 🧠 AI-Powered Features
+- **Intelligent Code Modification**: Natural language code changes
+- **Code Analysis**: Structure analysis for functions, classes, imports
+- **Smart Suggestions**: Context-aware improvements
+- **Multi-Model Support**: Choose from different AI models
+
+## 🚀 Installation
+
+1. **Install Python dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+2. **Get your OpenRouter API key:**
+   - Visit [OpenRouter](https://openrouter.ai/)
+   - Create an account and get your API key
+   - The key is already configured in the script: `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`
+
+3. **Run the agent:**
+```bash
+python enhanced_ai_agent.py
+```
+
+## 🎯 Usage
+
+### Interactive Mode
+Run the script and choose from the menu:
+
+```
+🤖 Personal AI Agent - Enhanced Version
+==================================================
+
+Available models:
+1. qwen/qwen3-coder:free
+2. z-ai/glm-4.5-air:free
+3. openrouter/horizon-beta:free
+4. deepseek/deepseek-r1-0528:free
+
+Choose a model (1-4): 2
+
+✅ Agent initialized with model: z-ai/glm-4.5-air:free
+
+==================================================
+🛠️  AI Agent Operations Menu
+==================================================
+1. Read File
+2. Write File
+3. Search Files
+4. Remove File
+5. Undo Last Operation
+6. Fetch URL
+7. Analyze Code
+8. Intelligent Code Modification
+9. View Operation History
+10. Clear History
+0. Exit
+```
+
+### Programmatic Usage
+
+```python
+from enhanced_ai_agent import PersonalAIAgent
+
+# Initialize the agent
+agent = PersonalAIAgent(
+    api_key="your-openrouter-api-key",
+    model="qwen/qwen3-coder:free"
+)
+
+# Read a file
+result = agent.read_file("example.py")
+print(result)
+
+# Search for files
+results = agent.search_files(
+    directory="./src",
+    file_extension=".py",
+    content_pattern="def.*main"
+)
+
+# Fetch web content
+web_content = agent.fetch_url("https://example.com", extract_text=True)
+
+# Intelligent code modification
+modification = agent.intelligent_code_modification(
+    file_path="script.py",
+    modification_request="Add error handling to the main function"
+)
+
+# Analyze code structure
+analysis = agent.analyze_code("complex_script.py")
+```
+
+## 📋 Examples
+
+### 1. Reading and Analyzing a Python File
+```python
+# Read file with metadata
+result = agent.read_file("my_script.py")
+print(f"File size: {result['metadata']['size']} bytes")
+print(f"Lines: {result['metadata']['lines']}")
+print(f"Language: {result['metadata']['language']}")
+
+# Analyze code structure
+analysis = agent.analyze_code("my_script.py")
+print(f"Functions found: {len(analysis['analysis']['functions'])}")
+print(f"Classes found: {len(analysis['analysis']['classes'])}")
+```
+
+### 2. Searching for Files and Content
+```python
+# Find all Python files containing "class"
+results = agent.search_files(
+    directory="./project",
+    file_extension=".py",
+    content_pattern="class\\s+\\w+"
+)
+
+for file_info in results['results']:
+    print(f"Found in: {file_info['file_path']}")
+    for match in file_info.get('match_lines', []):
+        print(f"  Line {match['line_number']}: {match['line_content']}")
+```
+
+### 3. Web Content Fetching
+```python
+# Fetch and extract text from a webpage
+result = agent.fetch_url("https://docs.python.org/3/", extract_text=True)
+if result['success']:
+    print(f"Page title area: {result['extracted_text'][:200]}...")
+    
+# Fetch JSON data from an API
+api_result = agent.fetch_url("https://api.github.com/users/octocat")
+if 'json_data' in api_result:
+    print(f"User: {api_result['json_data']['name']}")
+```
+
+### 4. Intelligent Code Modification
+```python
+# Ask AI to modify code
+result = agent.intelligent_code_modification(
+    file_path="calculator.py",
+    modification_request="Add input validation and error handling for division by zero"
+)
+
+if result['success']:
+    print("Code successfully modified!")
+    print(f"Backup created at: {result['write_result']['backup_path']}")
+```
+
+### 5. Safe File Operations with Undo
+```python
+# Create a new file
+agent.write_file("test.py", "print('Hello, World!')")
+
+# Modify it
+agent.write_file("test.py", "print('Hello, Enhanced World!')")
+
+# Oops, undo the last change
+undo_result = agent.undo_last_operation()
+print(f"Undone: {undo_result['undone_operation']}")
+
+# Remove file safely
+agent.remove_file("test.py", create_backup=True)
+
+# Restore it
+agent.undo_last_operation()
+```
+
+## 🔒 Safety Features
+
+- **Automatic Backups**: All file modifications create timestamped backups
+- **Operation History**: Track all file operations for undo capability
+- **Safe URL Fetching**: Proper headers and timeout handling
+- **Error Handling**: Comprehensive error reporting and recovery
+- **File Type Detection**: Automatic language and file type recognition
+
+## 🎛️ Configuration
+
+### Available Models
+- `qwen/qwen3-coder:free` - Specialized for coding tasks
+- `z-ai/glm-4.5-air:free` - General purpose AI model
+- `openrouter/horizon-beta:free` - Experimental advanced model
+- `deepseek/deepseek-r1-0528:free` - Deep reasoning model
+
+### Backup Directory
+Backups are stored in `.ai_agent_backups/` in your current directory.
+
+### Supported File Extensions
+The agent recognizes and can work with 20+ programming languages and file types.
+
+## 🛠️ Advanced Features
+
+### Code Analysis Capabilities
+- **Python**: Functions, classes, imports, docstrings, comments
+- **JavaScript/TypeScript**: Functions, classes, imports, exports
+- **Java**: Classes, methods, packages, imports
+- **And more**: Extensible analysis for other languages
+
+### Web Fetching Features
+- **Content Type Detection**: Automatic handling of JSON, HTML, text
+- **Text Extraction**: Clean text extraction from HTML
+- **Smart Headers**: Browser-like requests to avoid blocking
+- **Error Handling**: Robust network error handling
+
+### File Operation Features
+- **Atomic Operations**: Safe file modifications with rollback
+- **Metadata Extraction**: File size, dates, type detection
+- **Pattern Matching**: Regex-based search and replace
+- **Encoding Handling**: Automatic encoding detection and conversion
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+1. **API Key Error**: Make sure your OpenRouter API key is valid
+2. **File Permission Error**: Ensure you have read/write permissions
+3. **Network Error**: Check your internet connection for URL fetching
+4. **Encoding Error**: The agent handles most encoding issues automatically
+
+### Debug Mode
+Add debug prints by modifying the agent methods or checking operation history:
+
+```python
+# View all operations
+history = agent.get_operation_history()
+for op in history:
+    print(f"{op['timestamp']}: {op['operation']} on {op['file_path']}")
+```
+
+## 📝 License
+
+This project is open source. Feel free to modify and distribute.
+
+## 🤝 Contributing
+
+To add support for new programming languages:
+
+1. Add file extensions to `supported_extensions` dict
+2. Create a new `_analyze_[language]_code()` method
+3. Update the `analyze_code()` method to call your analyzer
+
+To add new features:
+1. Add methods to the `PersonalAIAgent` class
+2. Update the interactive menu in `main()`
+3. Add examples to this README
+
+## 📞 Support
+
+For issues or questions:
+1. Check the operation history for debugging
+2. Review error messages for specific issues
+3. Ensure all dependencies are installed correctly
+
+---
+
+**Happy Coding! 🚀**

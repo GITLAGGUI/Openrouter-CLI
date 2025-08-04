@@ -1,0 +1,19 @@
+# Enhanced AI Agent Requirements
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+openai>=1.0.0
+requests>=2.25.0
+click>=8.0.0
+pyyaml>=5.4.0
+
+# Optional dependencies for enhanced functionality
+beautifulsoup4>=4.9.0  # For better HTML parsing
+lxml>=4.6.0           # XML/HTML parser
+markdown>=3.3.0       # Markdown processing
+python-magic>=0.4.0   # File type detection (optional)
+
+# Development dependencies (optional)
+pytest>=6.0.0         # For testing
+black>=21.0.0         # Code formatting
+flake8>=3.8.0         # Code linting
